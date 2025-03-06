@@ -11,6 +11,6 @@ class Demo2Controller {
 
     @GetMapping
     fun hello(): String {
-        return "Hello"
+        return "demo2"
     }
 }
