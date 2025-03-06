@@ -36,9 +36,6 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-	//servelt
-	//	implementation("org.springframework.boot:spring-boot-starter-tomcat")
-	//	implementation("jakarta.servlet:jakarta.servlet-api:6.0.0")
 }
 
 dependencyManagement {
