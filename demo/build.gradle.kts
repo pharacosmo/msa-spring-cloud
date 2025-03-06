@@ -21,17 +21,24 @@ repositories {
 extra["springCloudVersion"] = "2024.0.0"
 
 dependencies {
+	// Spring Boot 기본 스타터
+	implementation("org.springframework.boot:spring-boot-starter")
+	implementation("org.springframework.boot:spring-boot-starter-web")
+	//
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
+	//
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
+	//cloud
 	implementation("org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j")
 	implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
 	implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
+	//test
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-
 	//servelt
-	implementation("jakarta.servlet:jakarta.servlet-api:6.0.0")
+	//	implementation("org.springframework.boot:spring-boot-starter-tomcat")
+	//	implementation("jakarta.servlet:jakarta.servlet-api:6.0.0")
 }
 
 dependencyManagement {
