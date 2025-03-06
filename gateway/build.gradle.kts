@@ -31,7 +31,7 @@ dependencies {
     // Spring Cloud Gateway 기본 종속성 추가
     implementation("org.springframework.cloud:spring-cloud-starter-gateway")
     // Eureka를 사용할 경우 추가
-    //    implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
+    implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
 }
 
 dependencyManagement {
