@@ -1,0 +1,98 @@
+version: "3.8"
+
+
+#services:
+#  eureka:
+#    image: eureka-server:latest
+#    container_name: eureka
+#    ports:
+#      - "8761:8761"
+#
+#  demo2:
+#    build: ./demo2  # demo2의 Dockerfile을 사용하여 빌드
+#    image: demo2:latest
+#    deploy:
+#      replicas: 2  # demo2를 2개 실행
+#    ports:
+#      - "8082-8083:8082"  # 여러 개 실행할 경우 포트 매핑
+#    environment:
+#      - SPRING_APPLICATION_NAME=demo2
+#      - SERVER_PORT=8082
+#      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka:8761/eureka
+#    depends_on:
+#      - eureka
+
+
+
+
+#./gradlew bootJar (EACH 도커파일 빌드X)
+
+#docker build -t demo2:latest .\demo2
+#docker run -d --name demo2-1 -p 8082:8082 -e EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://host.docker.internal:8761/eureka demo2:latest
+#docker run -d --name demo2-2 -p 8083:8083 -e SERVER_PORT=8083 -e EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://host.docker.internal:8761/eureka demo2:latest
+
+#docker build -t eureka-server:latest ./eureka
+#docker run -d --name eureka -p 8761:8761 eureka-server:latest
+
+#  docker-compose up -d --build
+
+
+services:
+  gateway:
+    build: ./gateway
+    image: gateway-server:latest
+    container_name: gateway-a
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_APPLICATION_NAME=gateway
+      - SERVER_PORT=8080
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka:8761/eureka
+    depends_on:
+      - eureka
+
+  eureka:
+    build: ./eureka
+    image: eureka-server:latest
+    container_name: eureka-a
+    ports:
+      - "8761:8761"
+
+  demo:
+    build: ./demo
+    image: demo:latest
+    container_name: demo-a
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_APPLICATION_NAME=demo
+      - SERVER_PORT=8081
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka:8761/eureka
+    depends_on:
+      - eureka
+
+  demo2-1:
+    build: ./demo2
+    image: demo2:latest
+    container_name: demo2-1-a
+    ports:
+      - "8082:8082"
+    environment:
+      - SPRING_APPLICATION_NAME=demo2
+      - SERVER_PORT=8082
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka:8761/eureka
+    depends_on:
+      - eureka
+
+  demo2-2:
+    image: demo2:latest
+    container_name: demo2-2-b
+    ports:
+      - "8083:8083"
+    environment:
+      - SPRING_APPLICATION_NAME=demo2
+      - SERVER_PORT=8083
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka:8761/eureka
+    depends_on:
+      - eureka
+

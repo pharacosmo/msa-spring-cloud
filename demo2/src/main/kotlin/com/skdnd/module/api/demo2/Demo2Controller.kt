@@ -11,6 +11,7 @@ class Demo2Controller {
 
     @GetMapping
     fun hello(): String {
+        println("hello demo2")
         return "demo2"
     }
 }
